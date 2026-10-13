@@ -1,0 +1,43 @@
+{% extends "home.html" %}
+{% block todo_container %}
+<main class="container">
+    <hr>
+    <section class="container-fluid">
+        <form method="post" action="/todo">
+            <div class="col-auto">
+                <div class="input-group mb-3">
+                    <input type="text" name="item" value="{{ item }}" class="form-control" placeholder="Введите новую задачу..." aria-label="Add a todo" aria-describedby="button-addon2" />
+                    <button class="btn btn-outline-primary" type="submit" id="button-addon2">
+                        Добавить задачу
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+
+    {% if todo %}
+    <article class="card container-fluid">
+        <br/>
+        <h4>ID задачи: {{ todo.id }} </h4>
+        <p></p>
+        <strong>
+            Описание: {{ todo.item }}
+        </strong>
+    </article>
+    {% else %}
+    <section class="container-fluid">
+        <h2 align="center">Список задач (Todos)</h2>
+        <br>
+        <div class="card">
+            <ul class="list-group list-group-flush">
+                {% for todo in todos %}
+                <li class="list-group-item">
+                    {{ loop.index }}. <a href="/todo/{{ loop.index }}"> {{ todo.item }} </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+    {% endif %}
+</main>
+{% endblock %}
